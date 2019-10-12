@@ -4,6 +4,7 @@ using Countries.Prism.ViewModels;
 using Countries.Prism.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Countries.Prism.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Countries.Prism
@@ -23,6 +24,7 @@ namespace Countries.Prism
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<CountriesPage, CountriesPageViewModel>();

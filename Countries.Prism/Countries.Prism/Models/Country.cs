@@ -18,7 +18,7 @@ namespace Countries.Prism.Models
         public string Alpha3Code { get; set; }
 
         [JsonProperty(PropertyName = "callingCodes")]
-        public List<long> CallingCodes { get; set; }
+        public List<string> CallingCodes { get; set; }
 
         [JsonProperty(PropertyName = "capital")]
         public string Capital { get; set; }
@@ -33,19 +33,19 @@ namespace Countries.Prism.Models
         public string Subregion { get; set; }
 
         [JsonProperty(PropertyName = "population")]
-        public long Population { get; set; }
+        public int Population { get; set; }
 
         [JsonProperty(PropertyName = "latlng")]
-        public List<long> Latlng { get; set; }
+        public List<double> Latlng { get; set; }
 
         [JsonProperty(PropertyName = "demonym")]
         public string Demonym { get; set; }
 
         [JsonProperty(PropertyName = "area")]
-        public long Area { get; set; }
+        public double? Area { get; set; }
 
         [JsonProperty(PropertyName = "gini")]
-        public double Gini { get; set; }
+        public double? Gini { get; set; }
 
         [JsonProperty(PropertyName = "timezones")]
         public List<string> Timezones { get; set; }

@@ -2,14 +2,72 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="Countries.Prism.Views.CountriesPage">
+             x:Class="Countries.Prism.Views.CountriesPage"
+             BackgroundColor="Silver"
+             Title="{Binding Title}">
 
-    <StackLayout
-        Padding="10">
-        <Label
-            FontSize="Large"
-            Text="Lands Page"/>
-    </StackLayout>
-  
+    <ScrollView>
+        <StackLayout
+            Padding="10">
+            <ListView    
+                BackgroundColor="Transparent"
+                HasUnevenRows="true"                 
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                ItemsSource="{Binding Countries}"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame
+                                CornerRadius="10"
+                                HasShadow="true"
+                                Margin="5">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectLandCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>                                    
+                                    <ffimageloading:CachedImage
+	                                    Grid.Column="0"
+	                                    Source="{Binding Flag}"
+	                                    LoadingPlaceholder= "LoaderImage"
+	                                    ErrorPlaceholder= "ErrorImage"
+	                                    CacheDuration= "50"
+	                                    RetryCount= "3"
+	                                    RetryDelay= "600"
+	                                    DownsampleToViewSize = "true"
+	                                    WidthRequest="100"/>
+                                    <StackLayout 
+                                        Grid.Column="1"
+                                        VerticalOptions="Center">
+                                        <Label 
+                                            FontAttributes="Bold"
+                                            FontSize="Medium" 
+                                            Text="{Binding Name}"
+                                            TextColor="Black">
+                                        </Label>
+                                        <Label 
+                                            Text="{Binding Capital}"
+                                            TextColor="Black">
+                                        </Label>
+                                    </StackLayout>
+                                    <Image 
+                                        Grid.Column="2"
+                                        HorizontalOptions="End" 
+                                        Source="ic_chevron_right">
+                                    </Image>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>  
 </ContentPage>

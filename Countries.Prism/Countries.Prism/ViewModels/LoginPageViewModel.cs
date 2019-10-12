@@ -5,6 +5,7 @@ namespace Countries.Prism.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
         private string _password;
         private bool _isRunning;
         private bool _isEnabled;
@@ -15,6 +16,10 @@ namespace Countries.Prism.ViewModels
         {
             Title = "Login";
             IsEnabled = true;
+            _navigationService = navigationService;
+
+            Email = "giovanyom12@gmail.com";
+            Password = "123456";
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
@@ -53,13 +58,21 @@ namespace Countries.Prism.ViewModels
                 return;
             }
 
+            IsRunning = true;
+            IsEnabled = false;
+
             if (Email != "giovanyom12@gmail.com" || Password != "123456")
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Email or password incorrect", "Accept");
+                Password = string.Empty;
                 return;
-            }
+            }            
 
-            await App.Current.MainPage.DisplayAlert("Ok", "Fuck yeahh!!!", "Accept");
+            IsRunning = false;
+            IsEnabled = true;
+
+            await _navigationService.NavigateAsync("CountriesPage");
+            Password = string.Empty;
         }
     }
 }
