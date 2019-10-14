@@ -1,12 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:prism="http://prismlibrary.com"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Countries.Prism.Views.CountriesPage"
              BackgroundColor="Silver"
              Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ffimageloadingsvg:SvgImageSourceConverter 
+                x:Key="SvgImageSourceConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ScrollView>
         <StackLayout
@@ -23,7 +32,7 @@
                             <Frame
                                 CornerRadius="10"
                                 HasShadow="true"
-                                Margin="5">
+                                Margin="0,0,0,5">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectLandCommand}"/>
                                 </Frame.GestureRecognizers>
@@ -35,14 +44,9 @@
                                     </Grid.ColumnDefinitions>                                    
                                     <ffimageloading:CachedImage
 	                                    Grid.Column="0"
-	                                    Source="{Binding Flag}"
-	                                    LoadingPlaceholder= "LoaderImage"
-	                                    ErrorPlaceholder= "ErrorImage"
-	                                    CacheDuration= "50"
-	                                    RetryCount= "3"
-	                                    RetryDelay= "600"
-	                                    DownsampleToViewSize = "true"
-	                                    WidthRequest="100"/>
+	                                    Source="{Binding Flag, Converter={StaticResource SvgImageSourceConverter}}"	                                    
+                                        HeightRequest="25"
+	                                    WidthRequest="60"/>
                                     <StackLayout 
                                         Grid.Column="1"
                                         VerticalOptions="Center">
