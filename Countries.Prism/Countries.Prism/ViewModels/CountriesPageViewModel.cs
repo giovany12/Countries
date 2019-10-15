@@ -3,12 +3,14 @@ using Countries.Prism.Services;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Countries.Prism.ViewModels
 {
     public class CountriesPageViewModel : ViewModelBase
     {
-        private ObservableCollection<Country> _countries;
+        private ObservableCollection<CountryItemViewModel> _countries;
+        private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private bool _isRefreshing;
 
@@ -16,12 +18,13 @@ namespace Countries.Prism.ViewModels
             INavigationService navigationService,
             IApiService apiService) : base(navigationService)
         {
+            _navigationService = navigationService;
             _apiService = apiService;
             Title = "Countries";
             LoadCountries();
         }
 
-        public ObservableCollection<Country> Countries
+        public ObservableCollection<CountryItemViewModel> Countries
         {
             get => _countries;
             set => SetProperty(ref _countries, value);
@@ -52,7 +55,33 @@ namespace Countries.Prism.ViewModels
             }
 
             var list = (List<Country>)response.Result;
-            Countries = new ObservableCollection<Country>(list);
+            Countries = new ObservableCollection<CountryItemViewModel>(list.Select(c => new CountryItemViewModel(_navigationService) 
+            {
+                Alpha2Code = c.Alpha2Code,
+                Alpha3Code = c.Alpha3Code,
+                AltSpellings = c.AltSpellings,
+                Area = c.Area,
+                Borders = c.Borders,
+                CallingCodes = c.CallingCodes,
+                Capital = c.Capital,
+                Cioc = c.Cioc,
+                Currencies = c.Currencies,
+                Demonym = c.Demonym,
+                Flag = c.Flag,
+                Gini = c.Gini,
+                Languages = c.Languages,
+                Latlng = c.Latlng,
+                Name = c.Name,
+                NativeName = c.NativeName,
+                NumericCode = c.NumericCode,
+                Population = c.Population,
+                Region = c.Region,
+                RegionalBlocs = c.RegionalBlocs,
+                Subregion = c.Subregion,
+                Timezones = c.Timezones,
+                TopLevelDomain = c.TopLevelDomain,
+                Translations = c.Translations,
+            }).ToList());
             IsRefreshing = false;
         }
     }

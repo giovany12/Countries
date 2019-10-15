@@ -27,7 +27,8 @@ namespace Countries.Prism
             containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
-            containerRegistry.RegisterForNavigation<CountriesPage, CountriesPageViewModel>();
+            containerRegistry.RegisterForNavigation<CountriesPage, CountriesPageViewModel>();            
+            containerRegistry.RegisterForNavigation<CountryPage, CountryPageViewModel>();
         }
     }
 }

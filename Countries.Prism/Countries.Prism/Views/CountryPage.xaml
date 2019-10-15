@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Countries.Prism.Views.CountryPage"
+             BackgroundColor="Silver"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ffimageloadingsvg:SvgImageSourceConverter 
+                x:Key="SvgImageSourceConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout
+            Padding="10">
+            <ffimageloading:CachedImage
+                Aspect="AspectFit"
+    	        Source="{Binding Country.Flag, Converter={StaticResource SvgImageSourceConverter}}"
+    	        LoadingPlaceholder= "LoaderImage"
+    	        ErrorPlaceholder= "ErrorImage"
+    	        CacheDuration= "50"
+    	        RetryCount= "3"
+    	        RetryDelay= "600"
+    	        DownsampleToViewSize = "true"
+                HeightRequest="200"
+    	        WidthRequest="200"
+                Margin="0,0,0,5"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="Capital: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="0"                
+                    Text="{Binding Country.Capital}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Text="Population: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{Binding Country.Population, StringFormat='{0:N0}'}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Text="Area: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Text="{Binding Country.Area, StringFormat='{0:N0}'}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Text="Alpha 2 code: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Text="{Binding Country.Alpha2Code}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    Text="Alpha 3 code: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="4"
+                    Text="{Binding Country.Alpha3Code}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="5"
+                    Text="Region: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="5"
+                    Text="{Binding Country.Region}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="6"
+                    Text="Subregion: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="6"
+                    Text="{Binding Country.Subregion}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="7"
+                    Text="Demonym: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="7"
+                    Text="{Binding Country.Demonym}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="8"
+                    Text="GINI: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="8"
+                    Text="{Binding Country.Gini, StringFormat='{0:N2}'}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="9"
+                    Text="Native Name: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="9"
+                    Text="{Binding Country.NativeName}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="10"
+                    Text="Numeric Code: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="10"
+                    Text="{Binding Country.NumericCode}"
+                    TextColor="Black"/>
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="11"
+                    Text="CIOC: "
+                    TextColor="Black"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="11"
+                    Text="{Binding Country.Cioc}"
+                    TextColor="Black"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
