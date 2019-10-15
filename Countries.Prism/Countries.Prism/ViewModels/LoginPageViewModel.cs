@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using Countries.Prism.Services;
+using Prism.Commands;
 using Prism.Navigation;
 
 namespace Countries.Prism.ViewModels
@@ -6,18 +7,20 @@ namespace Countries.Prism.ViewModels
     public class LoginPageViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
+        private readonly IApiService _apiService;
         private string _password;
         private bool _isRunning;
         private bool _isEnabled;
         private DelegateCommand _loginCommand;
 
         public LoginPageViewModel(
-            INavigationService navigationService) : base(navigationService)
+            INavigationService navigationService,
+            IApiService apiService) : base(navigationService)
         {
-            Title = "Login";
-            IsEnabled = true;
             _navigationService = navigationService;
-
+            _apiService = apiService;
+            Title = "Login";
+            IsEnabled = true;            
             Email = "giovanyom12@gmail.com";
             Password = "123456";
         }
@@ -61,8 +64,20 @@ namespace Countries.Prism.ViewModels
             IsRunning = true;
             IsEnabled = false;
 
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var connection = await _apiService.CheckConnection(url);
+            if (!connection)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
+                return;
+            }
+
             if (Email != "giovanyom12@gmail.com" || Password != "123456")
             {
+                IsEnabled = true;
+                IsRunning = false;
                 await App.Current.MainPage.DisplayAlert("Error", "Email or password incorrect", "Accept");
                 Password = string.Empty;
                 return;

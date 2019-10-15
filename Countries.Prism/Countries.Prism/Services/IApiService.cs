@@ -14,5 +14,7 @@ namespace Countries.Prism.Services
             string urlBase,
             string servicePrefix,
             string controller);
+
+        Task<bool> CheckConnection(string url);
     }
 }
