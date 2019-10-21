@@ -85,7 +85,7 @@ namespace Countries.Prism.ViewModels
 
             IsRunning = false;
             IsEnabled = true;
-
+            
             await _navigationService.NavigateAsync("CountriesPage");
             Password = string.Empty;
         }

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Countries.Prism.Views.LanguagesPage"             
+             Title="{Binding Title}">
+
+    <StackLayout
+        Padding="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label
+                FontAttributes="Bold"
+                Grid.Column="0"
+                Text="Iso 6391"
+                TextColor="Black"/>
+            <Label
+                FontAttributes="Bold"
+                Grid.Column="1"
+                Text="Iso 6392"
+                TextColor="Black"/>
+            <Label
+                FontAttributes="Bold"
+                Grid.Column="2"
+                Text="Name"
+                TextColor="Black"/>
+            <Label
+                FontAttributes="Bold"
+                Grid.Column="3"
+                Text="Native Name"
+                TextColor="Black"/>
+        </Grid>
+        <ListView
+            ItemsSource="{Binding Languages}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding Iso6391}"
+                                TextColor="Black"/>
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding Iso6392}"
+                                TextColor="Black"/>
+                            <Label
+                                Grid.Column="2"
+                                Text="{Binding Name}"
+                                TextColor="Black"/>
+                            <Label
+                                Grid.Column="3"
+                                Text="{Binding NativeName}"
+                                TextColor="Black"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

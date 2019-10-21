@@ -19,7 +19,7 @@ namespace Countries.Prism
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            await NavigationService.NavigateAsync("NavigationPage/CountriesPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -29,6 +29,11 @@ namespace Countries.Prism
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<CountriesPage, CountriesPageViewModel>();            
             containerRegistry.RegisterForNavigation<CountryPage, CountryPageViewModel>();
+            containerRegistry.RegisterForNavigation<CountryTabbedPage, CountryTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<BordersPage, BordersPageViewModel>();
+            containerRegistry.RegisterForNavigation<CurrenciesPage, CurrenciesPageViewModel>();
+            containerRegistry.RegisterForNavigation<TranslationsPage, TranslationsPageViewModel>();
+            containerRegistry.RegisterForNavigation<LanguagesPage, LanguagesPageViewModel>();
         }
     }
 }

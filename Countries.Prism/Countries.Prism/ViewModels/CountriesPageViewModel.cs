@@ -30,7 +30,7 @@ namespace Countries.Prism.ViewModels
             set => SetProperty(ref _countries, value);
         }
 
-        public bool IsRefreshing 
+        public bool IsRefreshing
         {
             get => _isRefreshing;
             set => SetProperty(ref _isRefreshing, value);
@@ -49,13 +49,13 @@ namespace Countries.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 await App.Current.MainPage.DisplayAlert(
-                    "Error", 
-                    response.Message, 
+                    "Error",
+                    response.Message,
                     "Accept");
             }
 
             var list = (List<Country>)response.Result;
-            Countries = new ObservableCollection<CountryItemViewModel>(list.Select(c => new CountryItemViewModel(_navigationService) 
+            Countries = new ObservableCollection<CountryItemViewModel>(list.Select(c => new CountryItemViewModel(_navigationService)
             {
                 Alpha2Code = c.Alpha2Code,
                 Alpha3Code = c.Alpha3Code,
