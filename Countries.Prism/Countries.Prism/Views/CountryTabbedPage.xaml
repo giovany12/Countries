@@ -13,6 +13,7 @@
         <local:CurrenciesPage/>
         <local:TranslationsPage/>
         <local:LanguagesPage/>
+        <local:RegionalBlocsPage/>
     </TabbedPage.Children>
 
 </TabbedPage>

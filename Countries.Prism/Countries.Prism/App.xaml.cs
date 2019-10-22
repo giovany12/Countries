@@ -34,6 +34,7 @@ namespace Countries.Prism
             containerRegistry.RegisterForNavigation<CurrenciesPage, CurrenciesPageViewModel>();
             containerRegistry.RegisterForNavigation<TranslationsPage, TranslationsPageViewModel>();
             containerRegistry.RegisterForNavigation<LanguagesPage, LanguagesPageViewModel>();
+            containerRegistry.RegisterForNavigation<RegionalBlocsPage, RegionalBlocsPageViewModel>();
         }
     }
 }
