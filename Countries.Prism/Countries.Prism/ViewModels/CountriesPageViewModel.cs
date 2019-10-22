@@ -1,9 +1,14 @@
-﻿using Countries.Prism.Models;
+﻿using Countries.Prism.Helpers;
+using Countries.Prism.Models;
 using Countries.Prism.Services;
+using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Countries.Prism.ViewModels
 {
@@ -13,6 +18,10 @@ namespace Countries.Prism.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private bool _isRefreshing;
+        private DelegateCommand _orderByNameCommand;
+        private DelegateCommand _orderByAreaCommand;
+        private DelegateCommand _orderByPopulationCommand;
+        private bool _isVisible;
 
         public CountriesPageViewModel(
             INavigationService navigationService,
@@ -36,11 +45,54 @@ namespace Countries.Prism.ViewModels
             set => SetProperty(ref _isRefreshing, value);
         }
 
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set => SetProperty(ref _isVisible, value);
+        }
+
+        public DelegateCommand OrderByNameCommand => _orderByNameCommand ?? (_orderByNameCommand = new DelegateCommand(CountryByName));
+
+        public DelegateCommand OrderByAreaCommand => _orderByAreaCommand ?? (_orderByAreaCommand = new DelegateCommand(CountryByArea));
+
+        public DelegateCommand OrderByPopulationCommand => _orderByPopulationCommand ?? (_orderByPopulationCommand = new DelegateCommand(CountryByPopulation));
+
+        private void CountryByName()
+        {
+            Countries = new ObservableCollection<CountryItemViewModel>(Countries.Select(c => c).OrderBy(c => c.Name).ToList());
+        }
+
+        private void CountryByArea()
+        {
+            Countries = new ObservableCollection<CountryItemViewModel>(Countries.Select(c => c).OrderBy(c => c.Area).ToList());
+        }
+
+        private void CountryByPopulation()
+        {
+            Countries = new ObservableCollection<CountryItemViewModel>(Countries.Select(c => c).OrderBy(c => c.Population).ToList());
+        }        
+
         private async void LoadCountries()
         {
-            IsRefreshing = true;
+            IsRefreshing = true;            
 
             var url = App.Current.Resources["UrlAPI"].ToString();
+            var connection = await _apiService.CheckConnection(url);
+            if (!connection)
+            {
+                IsRefreshing = false;
+                if (!string.IsNullOrEmpty(Settings.Countries))
+                {                    
+                    var countries = JsonConvert.DeserializeObject<List<Country>>(Settings.Countries);
+                    Countries = new ObservableCollection<CountryItemViewModel>(this.CountriesToCountriesItemViewModel(countries));
+                }
+                else
+                {
+                    IsVisible = true;
+                }
+                return;
+            }
+
             var response = await this._apiService.GetCountries(
                 url,
                 "/rest",
@@ -55,7 +107,14 @@ namespace Countries.Prism.ViewModels
             }
 
             var list = (List<Country>)response.Result;
-            Countries = new ObservableCollection<CountryItemViewModel>(list.Select(c => new CountryItemViewModel(_navigationService)
+            Countries = new ObservableCollection<CountryItemViewModel>(this.CountriesToCountriesItemViewModel(list));             
+            IsRefreshing = false;
+            Settings.Countries = JsonConvert.SerializeObject(Countries);
+        }
+
+        private IEnumerable<CountryItemViewModel> CountriesToCountriesItemViewModel(List<Country> countries)
+        {
+            return countries.Select(c => new CountryItemViewModel(_navigationService)
             {
                 Alpha2Code = c.Alpha2Code,
                 Alpha3Code = c.Alpha3Code,
@@ -81,8 +140,7 @@ namespace Countries.Prism.ViewModels
                 Timezones = c.Timezones,
                 TopLevelDomain = c.TopLevelDomain,
                 Translations = c.Translations,
-            }).ToList());
-            IsRefreshing = false;
+            }).ToList();
         }
     }
 }

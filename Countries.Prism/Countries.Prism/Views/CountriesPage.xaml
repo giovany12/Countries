@@ -16,14 +16,46 @@
                 x:Key="SvgImageSourceConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-
+ 
     <ScrollView>
-        <StackLayout
-            Padding="10">
-            <ListView    
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button                
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="Order by name"
+                Command="{Binding OrderByNameCommand}"/>
+            <Button                
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="Order by area"
+                Command="{Binding OrderByAreaCommand}"/>
+            <Button                
+                Grid.Row="0"
+                Grid.Column="2"
+                Text="Order by population"
+                Command="{Binding OrderByPopulationCommand}"/>
+            <Label
+                Grid.ColumnSpan="3"
+                Grid.Row="1"
+                IsVisible="{Binding IsVisible, Mode=TwoWay}"
+                Margin="5"
+                Text="You must enter in the app with internet at least once"/>
+            <ListView
+                CachingStrategy="RecycleElement"
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
                 BackgroundColor="Transparent"
-                HasUnevenRows="true"                 
-                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                HasUnevenRows="true"
                 ItemsSource="{Binding Countries}"
                 SeparatorVisibility="None">
                 <ListView.ItemTemplate>
@@ -41,7 +73,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>                                    
+                                    </Grid.ColumnDefinitions>
                                     <ffimageloading:CachedImage
 	                                    Grid.Column="0"
 	                                    Source="{Binding Flag, Converter={StaticResource SvgImageSourceConverter}}"	                                    
@@ -72,6 +104,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
+        </Grid>
     </ScrollView>  
 </ContentPage>
