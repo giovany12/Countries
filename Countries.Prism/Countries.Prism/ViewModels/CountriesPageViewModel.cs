@@ -64,12 +64,12 @@ namespace Countries.Prism.ViewModels
 
         private void CountryByArea()
         {
-            Countries = new ObservableCollection<CountryItemViewModel>(Countries.Select(c => c).OrderBy(c => c.Area).ToList());
+            Countries = new ObservableCollection<CountryItemViewModel>(Countries.Select(c => c).OrderByDescending(c => c.Area).ToList());
         }
 
         private void CountryByPopulation()
         {
-            Countries = new ObservableCollection<CountryItemViewModel>(Countries.Select(c => c).OrderBy(c => c.Population).ToList());
+            Countries = new ObservableCollection<CountryItemViewModel>(Countries.Select(c => c).OrderByDescending(c => c.Population).ToList());
         }        
 
         private async void LoadCountries()

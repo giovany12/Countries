@@ -29,17 +29,26 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button                
+            <Button
+                BackgroundColor="White"
+                FontAttributes="Bold"
+                FontSize="Micro"
                 Grid.Row="0"
                 Grid.Column="0"
                 Text="Order by name"
                 Command="{Binding OrderByNameCommand}"/>
-            <Button                
+            <Button
+                BackgroundColor="White"
+                FontAttributes="Bold"
+                FontSize="Micro"
                 Grid.Row="0"
                 Grid.Column="1"
                 Text="Order by area"
                 Command="{Binding OrderByAreaCommand}"/>
-            <Button                
+            <Button
+                BackgroundColor="White"
+                FontAttributes="Bold"
+                FontSize="Micro"
                 Grid.Row="0"
                 Grid.Column="2"
                 Text="Order by population"

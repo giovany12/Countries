@@ -6,9 +6,9 @@
              x:Class="Countries.Prism.Views.BordersPage"
              Title="{Binding Title}">
 
-    <StackLayout>
-        <ListView
-            
+    <StackLayout
+        Padding="10">
+        <ListView            
             HasUnevenRows="True"
             ItemsSource="{Binding Borders}">
             <ListView.ItemTemplate>
